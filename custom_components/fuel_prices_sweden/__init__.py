@@ -25,7 +25,10 @@ logger = logging.getLogger(f"custom_components.{DOMAIN}")
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the integration from the config yaml."""
     logger.debug("[__init__][setup] Started")
-    conf = config[DOMAIN]
+    logger.debug(config)
+    conf = config.get(DOMAIN)
+    if conf is None :
+        return True
     if not validate_config(conf):
         logger.error("[__init__][setup] Invalid config")
         return False
