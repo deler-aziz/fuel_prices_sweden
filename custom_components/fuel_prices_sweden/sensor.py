@@ -147,6 +147,11 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
         return "mdi:gas-station"
 
     @property
+    def state(self) -> float:
+        """Return the state of the sensor and perform unit conversions, if needed."""
+        return self._coordinator.data.get(self._id) or 0
+
+    @property
     def extra_state_attributes(self):
         """Get extra_state_attributes."""
         attr = {}
@@ -156,10 +161,5 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        self._update_sensore_from_coordinator_data()
         self.async_write_ha_state()
 
-    def _update_sensore_from_coordinator_data(self):
-        data =  self._coordinator.data or []
-        self._attr_native_value = data.get(self._id) or 0
-        self._updated_at = self._coordinator.updated_at

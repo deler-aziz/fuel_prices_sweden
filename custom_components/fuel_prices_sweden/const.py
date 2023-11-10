@@ -29,9 +29,9 @@ DATA_STATIONS_NAME = sorted(
 DATA_CIRCLEK_FUEL_TYPES = [
     "miles 95",
     "miles 98",
-    "milesPLUS 98",
+    "miles+ 98",
     "miles diesel",
-    "milesPLUS diesel",
+    "miles+ diesel",
     "HVO100",
     "Fordonsgas",
     "E85",
