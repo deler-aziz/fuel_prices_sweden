@@ -22,7 +22,7 @@ logger = logging.getLogger(f"custom_components.{DOMAIN}")
 
 
 async def validate_input_user(data: dict):
-    """Validate input [STEP: user]"""
+    """Validate input [STEP: user]."""
     if data[CONF_UPDATE_INTERVAL] < 60:
         raise InvalidUpdateInterval
     if len(data[CONF_STATIONS]) < 1:
@@ -31,7 +31,7 @@ async def validate_input_user(data: dict):
 
 
 async def validate_input_station(data: dict):
-    """Validate input [STEP: user]"""
+    """Validate input [STEP: user]."""
     if len(data[CONF_FUELTYPES]) < 1:
         raise NoFuelTypSelected
     return data
@@ -89,12 +89,7 @@ class FuelPricesSwedenFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         await self.async_set_unique_id(integration_id)
         self._data[CONF_INTEGRATION_ID] = integration_id
         self._data[CONF_UPDATE_INTERVAL] = user_input[CONF_UPDATE_INTERVAL]
-        self._data[CONF_STATIONS] = list(
-            map(
-                lambda name: {CONF_NAME: name, CONF_FUELTYPES: []},
-                user_input[CONF_STATIONS],
-            )
-        )
+        self._data[CONF_STATIONS] = [{CONF_NAME: name, CONF_FUELTYPES: []} for name in user_input[CONF_STATIONS]]
 
         self._stations = user_input[CONF_STATIONS]
         self._current_station_index = 0
@@ -102,7 +97,7 @@ class FuelPricesSwedenFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return await self.async_step_station()
 
     async def async_step_station(self, user_input=None):
-        """Function providing Station configuration."""
+        """Station configuration step."""
         logger.debug("[config_flow][step_station] Started")
         self._errors = {}
         last_step = self.check_last_step()
@@ -147,15 +142,15 @@ class FuelPricesSwedenFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     def check_last_step(self):
-        """Function checking if the step is last step."""
+        """Check if the step is last step."""
         return self._current_station_index == len(self._stations) - 1
 
     def get_current_station(self):
-        """Function returns current station."""
+        """Get current station."""
         return self._stations[self._current_station_index]
 
     def get_station_index(self, station):
-        """Function returns the station index."""
+        """Get the station index."""
         return [
             index
             for index, st in enumerate(self._data[CONF_STATIONS])

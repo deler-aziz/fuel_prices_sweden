@@ -1,17 +1,17 @@
 {
   "domain": "fuel_prices_sweden",
   "name": "Fuel Prices Sweden",
-  "documentation": "https://ha.deler.dev",
-  "issue_tracker": "https://github.com/deler-aziz/fuel_prices_sweden/issues",
-  "integration_type": "hub",
-  "dependencies": [],
   "codeowners": [
     "@deler-aziz"
   ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://ha.deler.dev",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/deler-aziz/fuel_prices_sweden/issues",
   "requirements": [
     "beautifulsoup4"
   ],
-  "iot_class": "cloud_polling",
-  "version": "1.0.0",
-  "config_flow": true
+  "version": "1.0.0"
 }

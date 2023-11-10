@@ -1,12 +1,12 @@
-"""misc module."""
+"""Misc module."""
 import re
 
 def get_entity_station(name: str) -> str:
-    """Get station entity name"""
+    """Get station entity name."""
     return _convert(name)
 
 def get_entity_fuel_type(name: str) -> str:
-    """Get fuel type entity name"""
+    """Get fuel type entity name."""
     return _convert(name)
 
 def _convert(name: str) -> str:

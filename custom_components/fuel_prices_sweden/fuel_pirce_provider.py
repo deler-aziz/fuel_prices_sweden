@@ -46,7 +46,7 @@ class FuelPriceProvider:
         return result
 
     async def async_circle_k_prices(self, fuel_types) -> list[FuelPrice]:
-        """Function to get Circle K station fuel prices."""
+        """Get Circle K station fuel prices."""
         logger.debug("[fuel_prices_provider][circlek_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_CIRCLE_K_URL)
         station_entity_name = get_entity_station("Circle K")
@@ -54,7 +54,7 @@ class FuelPriceProvider:
         return self._extratct_fuel_type_price(rows, fuel_types, station_entity_name, 1, 2)
 
     async def async_ingo_prices(self, fuel_types) -> list[FuelPrice]:
-        """Function to get Ingo station fuel prices."""
+        """Get Ingo station fuel prices."""
         logger.debug("[fuel_prices_provider][ingo_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_INGO_URL)
         station_entity_name = get_entity_station("Ingo")
@@ -62,7 +62,7 @@ class FuelPriceProvider:
         return self._extratct_fuel_type_price(rows, fuel_types, station_entity_name, 1, 2)
 
     async def async_okq8_prices(self, fuel_types) -> list[FuelPrice]:
-        """Function to get OKQ8 station fuel prices."""
+        """Get OKQ8 station fuel prices."""
         logger.debug("[fuel_prices_provider][okq8_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_OKQ8_URL)
         station_entity_name = get_entity_station("OKQ8")
@@ -70,7 +70,7 @@ class FuelPriceProvider:
         return self._extratct_fuel_type_price(rows, fuel_types, station_entity_name, 0, 1)
 
     async def async_preem_prices(self, fuel_types) -> list[FuelPrice]:
-        """Function to get Preem station fuel prices."""
+        """Get Preem station fuel prices."""
         logger.debug("[fuel_prices_provider][preem_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_PREEM_URL)
         station_entity_name = get_entity_station("Preem")
@@ -78,7 +78,7 @@ class FuelPriceProvider:
         return self._extratct_fuel_type_price(rows, fuel_types, station_entity_name, 0, 1)
 
     async def async_shell_prices(self, fuel_types) -> list[FuelPrice]:
-        """Function to get Shell station fuel prices."""
+        """Get Shell station fuel prices."""
         logger.debug("[fuel_prices_provider][shell_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_SHELL_URL)
         station_entity_name = get_entity_station("Shell")
@@ -86,7 +86,7 @@ class FuelPriceProvider:
         return self._extratct_fuel_type_price(rows, fuel_types, station_entity_name, 0, 1)
 
     async def async_st1_prices(self, fuel_types) -> list[FuelPrice]:
-        """Function to get St1 station fuel prices."""
+        """Get St1 station fuel prices."""
         logger.debug("[fuel_prices_provider][st1_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_ST1_URL)
         station_entity_name = get_entity_station("St1")

@@ -1,7 +1,7 @@
 """Types module."""
 from __future__ import annotations
 
-from typing import TypedDict, Dict
+from typing import TypedDict
 
 class FuelPrice(TypedDict):
     """FuelPrice type."""
@@ -10,4 +10,4 @@ class FuelPrice(TypedDict):
     price: float
 
 
-FuelPriceFetchResult = Dict[str, float]
+FuelPriceFetchResult = dict[str, float]

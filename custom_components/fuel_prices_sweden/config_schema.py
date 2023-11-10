@@ -27,7 +27,7 @@ from .const import (
 
 
 def main_config_schema(config: dict = None) -> dict:
-    """Main shcema configuration dict."""
+    """Get main schema configuration dict."""
     if config is None:
         config = {CONF_UPDATE_INTERVAL: DEFAULT_UPDATE_INTERVAL, CONF_STATIONS: []}
     return {
@@ -45,7 +45,7 @@ def main_config_schema(config: dict = None) -> dict:
 
 
 def station_config_schema(step_id, config: dict = None) -> dict:
-    """Station shcema configuration dict."""
+    """Get station schema configuration dict."""
     options = []
     if config is None:
         config = {CONF_FUELTYPES: []}

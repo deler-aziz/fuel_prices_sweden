@@ -53,7 +53,7 @@ async def async_setup_platform(hass: HomeAssistant,
                                config: ConfigType, # pylint: disable=unused-argument
                                async_add_devices: AddEntitiesCallback,
                                discovery_info: DiscoveryInfoType | None = None) -> None:
-    """Setup sensor platform for the manual config yaml"""
+    """Start the setup sensor platform for the manual config yaml."""
     logger.debug("[sensor][setup_platform] Started")
     if discovery_info is None:
         logger.error("[sensor][setup_entry] No discovery_info")
@@ -68,7 +68,7 @@ async def async_setup_platform(hass: HomeAssistant,
 async def async_setup_entry(hass: HomeAssistant,
                             config_entry: ConfigEntry,
                             async_add_entities: AddEntitiesCallback) -> None:
-    """Setup sensor platform for the ui"""
+    """Start the setup sensor platform for the ui."""
     config = config_entry.data
     logger.debug("[sensor][setup_entry] Started")
     entities = _get_entities(hass, config, config_entry.entry_id)
@@ -84,7 +84,8 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
     _attr_device_class = SensorDeviceClass.MONETARY
     _attr_state_class = SensorStateClass.TOTAL
 
-    def __init__(self, data, coordinator):  #
+    def __init__(self, data, coordinator):
+        """Initialize."""
         super().__init__(coordinator)
         self._coordinator = coordinator
         self._is_manual = bool(data[CONF_IS_MANUAL])
@@ -108,20 +109,24 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
 
     @property
     def unique_id(self):
+        """Get unique_id."""
         if self._is_manual:
             return f"{self._id}_{random.randint(1, 100)}"
         return self._id
 
     @property
     def device_class(self):
+        """Get device_class."""
         return self._attr_device_class
 
     @property
     def state_class(self) -> str:
+        """Get state_class."""
         return self._attr_state_class
 
     @property
     def device_info(self):
+        """Get device_info."""
         return {
             "identifiers": {(DOMAIN, self._device_id)},
             "name": self._device_name,
@@ -131,16 +136,19 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
 
     @property
     def name(self):
+        """Get name."""
         if self._is_manual:
             return f"{self._device_name} - {self._sensor_name}"
         return self._sensor_name
 
     @property
     def icon(self):
+        """Get icon."""
         return "mdi:gas-station"
 
     @property
     def extra_state_attributes(self):
+        """Get extra_state_attributes."""
         attr = {}
         attr[CONF_UPDATED_AT] = self._updated_at
         return attr

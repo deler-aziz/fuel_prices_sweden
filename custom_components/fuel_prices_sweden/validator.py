@@ -1,4 +1,5 @@
 """Validator module."""
+# ruff: noqa: F401
 import sys
 import logging
 # pylint: disable=unused-import
@@ -19,7 +20,7 @@ from .const import (DOMAIN,
 logger = logging.getLogger(f"custom_components.{DOMAIN}")
 
 def validate_config(config: dict) -> bool:
-    """validate config."""
+    """Validate config."""
     logger.debug("[validator][validate_config] Started")
     this_module = sys.modules[__name__]
     if config is None:
