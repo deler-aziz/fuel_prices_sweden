@@ -58,8 +58,8 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 - **Circle K**
 
     <table>
-        <tr><td>miles 95</td><td>miles 98</td><td>milesPLUS 98</td></tr>
-        <tr><td>miles diesel</td><td>milesPLUS diesel</td><td>HVO100</td></tr>
+        <tr><td>miles 95</td><td>miles 98</td><td>miles+ 98</td></tr>
+        <tr><td>miles diesel</td><td>miles+ diesel</td><td>HVO100</td></tr>
         <tr><td>Fordonsgas</td><td>E85</td><td></td></tr>
     </table>
 
