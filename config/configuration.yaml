@@ -1,0 +1,20 @@
+# https://www.home-assistant.io/integrations/default_config/
+default_config:
+
+# https://www.home-assistant.io/integrations/logger/
+logger:
+  default: info
+  logs:
+    custom_components.fuel_prices_sweden: debug
+
+fuel_prices_sweden:
+  update_interval: 60
+  stations:
+    - name: St1
+      fuel_types:
+        - Fordonsgas
+        - Diesel
+    - name: Circle K
+      fuel_types:
+        - miles 95
+        - miles 98

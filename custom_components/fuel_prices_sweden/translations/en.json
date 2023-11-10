@@ -1,0 +1,30 @@
+{
+    "config": {
+        "title": "Fuel Prices Sweden",
+        "step": {
+            "user": {
+                "title": "Fuel Prices Sweden",
+                "description": "Setup fuel price in Sweden integration.",
+                "data": {
+                    "stations": "Stations which you want to get the fuel price from.",
+                    "update_interval": "Price update interval (Minimum 60 minutes)"
+                }
+            },
+            "station": {
+                "title": "{station_name}",
+                "description": "Select the fuel types.",
+                "data": {
+                    "fuel_type": "Fuel types"
+                }
+            }
+        },
+        "error": {
+            "invalid_update_interval": "Update interval should be minimum 60",
+            "no_station_selected": "Please select at least one station",
+            "no_fuel_type_selected": "Please select at least one fuel type"
+        },
+        "abort": {
+            "already_configured": "Integration is already configured"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Fuel Prices Sweden",
+    "filename": "fuel_prices_sweden.zip",
+    "country": [
+        "SE"
+    ],
+    "render_readme": true,
+    "zip_release": true
+}
