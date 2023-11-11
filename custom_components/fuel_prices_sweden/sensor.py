@@ -110,9 +110,7 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
     @property
     def unique_id(self):
         """Get unique_id."""
-        if self._is_manual:
-            return f"{self._id}_{random.randint(1, 100)}"
-        return self._id
+        return f"{self._id}_{random.randint(1, 100)}"
 
     @property
     def device_class(self):

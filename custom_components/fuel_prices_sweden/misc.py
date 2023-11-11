@@ -17,6 +17,7 @@ def _convert(name: str) -> str:
     return name
 
 def _replace_non_letter_digit(name: str) -> str:
+    name = name.replace("+", "plus")
     return re.sub("\\W","_", name)
 
 def _replace_multi_underscore(name: str) -> str:
