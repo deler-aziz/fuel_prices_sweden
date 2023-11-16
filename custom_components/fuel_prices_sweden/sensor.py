@@ -1,6 +1,5 @@
 """Sensor module."""
 import logging
-import random
 
 from homeassistant.components.sensor import (
     SensorEntity,
@@ -110,7 +109,7 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
     @property
     def unique_id(self):
         """Get unique_id."""
-        return f"{self._id}_{random.randint(1, 100)}"
+        return f"{self._id}"
 
     @property
     def device_class(self):

@@ -62,7 +62,7 @@ CONF_FUELTYPES = "fuel_types"
 CONF_FUEL_TYPE = "fuel_type"
 CONF_PRICE = "price"
 CONF_UPDATED_AT = "updated_at"
-CONF_ENTRY_TITLE = "Fuel Price"
+CONF_ENTRY_TITLE = "Fuel Prices"
 CONF_IS_MANUAL = "is_manual"
 
 PLACEHOLDER_KEY_STATION_NAME = "station_name"
