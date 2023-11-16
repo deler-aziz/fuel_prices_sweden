@@ -96,7 +96,7 @@ class FuelPriceProvider:
     async def _asyc_get_html_tables(self, url) -> ResultSet:
         response = await self.hass.async_add_executor_job(self._get, url)
         # &nbsp = \xa0 (non-breaking space)
-        raw_html = response.text.replace('\xa0','')
+        raw_html = response.text.replace('\xa0',' ').replace("&nbsp;", " ")
         doc = BS(raw_html, "html.parser")
         return doc.find_all("table")
 
