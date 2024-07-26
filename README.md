@@ -80,7 +80,7 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 - Preem
     <table>
         <tr><td>Preem Evolution Bensin 95</td><td>Preem Evolution Diesel</td></tr>
-        <tr><td>HVO</td><td>E85</td></tr>
+        <tr><td>HVO100</td><td>E85</td></tr>
     </table>
 
 - Shell
@@ -92,8 +92,8 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 
 - St1
     <table>
-        <tr><td>Bensin 95 RE+</td><td>Bensin 95</td><td>Diesel RE+</td></tr>
-        <tr><td>Diesel</td><td>E85</td><td>Fordonsgas</td></tr>
+        <tr><td>Bensin 95</td><td>Diesel RE+r</td><td>Diesel</td></tr>
+        <tr><td>E85</td><td>Fordonsgas</td><td></td></tr>
     </table>
 
 
