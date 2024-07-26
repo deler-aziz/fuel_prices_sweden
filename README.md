@@ -17,10 +17,11 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 
 
 ## 🚀 Installation
-### Using HACS (recommended)
+### Using HACS store (recommended)
 1. If you don't have it already, install HACS [Check here](https://hacs.xyz/docs/setup/download/)
-2. Go into HACS and search for `Fuel Prices Sweden`
-3. Follow the [configuration](#Configuration) section to setup the integration
+2. Go into HACS and Add https://github.com/deler-aziz/fuel_prices_sweden as custom repository
+3. In HACS search for `Fuel Prices Sweden` Or [![Open your Home Assistant instance and open Fuel Prices Sweden repository inside the HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=deler-aziz&repository=fuel_prices_sweden)
+4. Follow the [configuration](#Configuration) section to setup the integration
 
 
 ### Manual
