@@ -49,9 +49,9 @@ DATA_OKQ8_FUEL_TYPES = [
     "Biogas 100 Sthlm & Uppsala län",
     "Biogas 100 Övriga landet"
 ]
-DATA_PREEM_FUEL_TYPES = [ "Preem Evolution Bensin 95", "Preem Evolution Diesel", "HVO", "E85"]
+DATA_PREEM_FUEL_TYPES = [ "Preem Evolution Bensin 95", "Preem Evolution Diesel", "HVO100", "E85"]
 DATA_SHELL_FUEL_TYPES = [ "Blyfri 95", "Blyfri 98", "V-Power", "CityDiesel", "E85", "Biogas", "HVO"]
-DATA_ST1_FUEL_TYPES = [ "Bensin 95 RE+", "Bensin 95", "Diesel RE+", "Diesel", "E85", "Fordonsgas"]
+DATA_ST1_FUEL_TYPES = [ "Bensin 95", "Diesel RE+r", "Diesel", "E85", "Fordonsgas"]
 DATA_TZ = "Europe/Stockholm"
 
 CONF_INTEGRATION_ID = "id"

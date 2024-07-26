@@ -17,10 +17,11 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 
 
 ## 🚀 Installation
-### Using HACS (recommended)
+### Using HACS store (recommended)
 1. If you don't have it already, install HACS [Check here](https://hacs.xyz/docs/setup/download/)
-2. Go into HACS and search for `Fuel Prices Sweden`
-3. Follow the [configuration](#Configuration) section to setup the integration
+2. Go into HACS and Add https://github.com/deler-aziz/fuel_prices_sweden as custom repository
+3. In HACS search for `Fuel Prices Sweden` Or [![Open your Home Assistant instance and open Fuel Prices Sweden repository inside the HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=deler-aziz&repository=fuel_prices_sweden)
+4. Follow the [configuration](#Configuration) section to setup the integration
 
 
 ### Manual
@@ -80,7 +81,7 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 - Preem
     <table>
         <tr><td>Preem Evolution Bensin 95</td><td>Preem Evolution Diesel</td></tr>
-        <tr><td>HVO</td><td>E85</td></tr>
+        <tr><td>HVO100</td><td>E85</td></tr>
     </table>
 
 - Shell
@@ -92,8 +93,8 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 
 - St1
     <table>
-        <tr><td>Bensin 95 RE+</td><td>Bensin 95</td><td>Diesel RE+</td></tr>
-        <tr><td>Diesel</td><td>E85</td><td>Fordonsgas</td></tr>
+        <tr><td>Bensin 95</td><td>Diesel RE+r</td><td>Diesel</td></tr>
+        <tr><td>E85</td><td>Fordonsgas</td><td></td></tr>
     </table>
 
 
