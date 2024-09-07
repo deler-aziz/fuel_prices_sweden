@@ -44,9 +44,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up fuel prices sweden entries."""
     logger.debug("[__init__][setup_entry] Started with entry Id: %s", entry.entry_id)
     result = await _do_setup(hass=hass, config=entry.data, entry_id=entry.entry_id)
-    hass.async_create_task(
-        hass.config_entries.async_forward_entry_setup(entry, Platform.SENSOR)
-    )
+    await hass.config_entries.async_forward_entry_setups(entry, [Platform.SENSOR])
     entry.add_update_listener(reload_entry)
     logger.debug("[__init__][setup_entry] Completed")
     return result
