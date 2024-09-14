@@ -52,7 +52,10 @@ DATA_OKQ8_FUEL_TYPES = [
     { "name": "Biogas Bas Sthlm & Uppsala län", "unit": "kg" },
     { "name": "Biogas Bas Övriga landet", "unit": "kg" },
     { "name": "Biogas 100 Sthlm & Uppsala län", "unit": "kg" },
-    { "name": "Biogas 100 Övriga landet", "unit": "kg" }
+    { "name": "Biogas 100 Övriga landet", "unit": "kg" },
+    { "name": "AdBlue", "unit": "l" },
+    { "name": "Snabbladdning 150 kW", "unit": "kWh" },
+    { "name": "Snabbladdning 50 kW", "unit": "kWh" },
 ]
 DATA_PREEM_FUEL_TYPES = [
     { "name": "Preem Evolution Bensin 95", "unit": "l" },
