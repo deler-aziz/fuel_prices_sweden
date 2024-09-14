@@ -8,6 +8,7 @@ class FuelPrice(TypedDict):
 
     name: str
     price: float
+    unit: str
 
 
-FuelPriceFetchResult = dict[str, float]
+FuelPriceFetchResult = dict[str, float, str]

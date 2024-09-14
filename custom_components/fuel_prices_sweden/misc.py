@@ -9,6 +9,10 @@ def get_entity_fuel_type(name: str) -> str:
     """Get fuel type entity name."""
     return _convert(name)
 
+def get_attribute_station_name(name: str) -> str:
+    """Get station name to as attribute."""
+    return name.upper().replace(" ", "")
+
 def _convert(name: str) -> str:
     name =_replace_non_letter_digit(name)
     name = _replace_multi_underscore(name)

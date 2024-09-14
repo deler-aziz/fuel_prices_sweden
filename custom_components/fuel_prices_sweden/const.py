@@ -27,32 +27,60 @@ DATA_STATIONS_NAME = sorted(
      DATA_STATION_ST1]
 )
 DATA_CIRCLEK_FUEL_TYPES = [
-    "miles 95",
-    "miles 98",
-    "miles+ 98",
-    "miles diesel",
-    "miles+ diesel",
-    "HVO100",
-    "Fordonsgas",
-    "E85",
+    { "name": "miles 95", "unit": "l" },
+    { "name": "miles 98", "unit": "l" },
+    { "name": "miles+ 98", "unit": "l" },
+    { "name": "miles diesel", "unit": "l" },
+    { "name": "miles+ diesel", "unit": "l" },
+    { "name": "HVO100", "unit": "l" },
+    { "name": "Fordonsgas", "unit": "kg" },
+    { "name": "E85", "unit": "l" }
 ]
-DATA_INGO_FUEL_TYPES = ["Bensin 95", "Bensin 98 E5", "Diesel", "Etanol"]
+DATA_INGO_FUEL_TYPES = [
+    { "name": "Bensin 95", "unit": "l" },
+    { "name": "Bensin 98 E5",  "unit": "l" },
+    { "name": "Diesel",  "unit": "l" },
+    { "name": "Etanol", "unit": "l" }
+]
 DATA_OKQ8_FUEL_TYPES = [
-    "GoEasy Bensin 95 (E10)",
-    "GoEasy Bensin Extra 98 (E5)",
-    "GoEasy Diesel (B7)",
-    "GoEasy Diesel Extra (B0)",
-    "Neste MY Förnybar Diesel (HVO100)",
-    "Etanol E85",
-    "Biogas Bas Sthlm & Uppsala län",
-    "Biogas Bas Övriga landet",
-    "Biogas 100 Sthlm & Uppsala län",
-    "Biogas 100 Övriga landet"
+    { "name": "GoEasy Bensin 95 (E10)", "unit": "l" },
+    { "name": "GoEasy Bensin Extra 98 (E5)", "unit": "l" },
+    { "name": "GoEasy Diesel (B7)", "unit": "l" },
+    { "name": "GoEasy Diesel Extra (B0)", "unit": "l" },
+    { "name": "Neste MY Förnybar Diesel (HVO100)", "unit": "l" },
+    { "name": "Etanol E85", "unit": "l" },
+    { "name": "Biogas Bas Sthlm & Uppsala län", "unit": "kg" },
+    { "name": "Biogas Bas Övriga landet", "unit": "kg" },
+    { "name": "Biogas 100 Sthlm & Uppsala län", "unit": "kg" },
+    { "name": "Biogas 100 Övriga landet", "unit": "kg" },
+    { "name": "AdBlue", "unit": "l" },
+    { "name": "Snabbladdning 150 kW", "unit": "kWh" },
+    { "name": "Snabbladdning 50 kW", "unit": "kWh" },
 ]
-DATA_PREEM_FUEL_TYPES = [ "Preem Evolution Bensin 95", "Preem Evolution Diesel", "HVO100", "E85"]
-DATA_SHELL_FUEL_TYPES = [ "Blyfri 95", "Blyfri 98", "V-Power", "CityDiesel", "E85", "Biogas", "HVO"]
-DATA_ST1_FUEL_TYPES = [ "Bensin 95", "Diesel RE+r", "Diesel", "E85", "Fordonsgas"]
+DATA_PREEM_FUEL_TYPES = [
+    { "name": "Preem Evolution Bensin 95", "unit": "l" },
+    { "name": "Preem Evolution Diesel", "unit": "l" },
+    { "name": "HVO100", "unit": "l" },
+    { "name": "E85", "unit": "l" }
+]
+DATA_SHELL_FUEL_TYPES = [
+    { "name": "Blyfri 95", "unit": "l" },
+    { "name": "Blyfri 98", "unit": "l" },
+    { "name": "V-Power", "unit": "l" },
+    { "name": "CityDiesel", "unit": "l" },
+    { "name": "E85", "unit": "l" },
+    { "name": "Biogas", "unit": "kg" },
+    { "name": "HVO", "unit": "l" }
+]
+DATA_ST1_FUEL_TYPES = [
+    { "name": "Bensin 95", "unit": "l" },
+    { "name": "Diesel RE+r", "unit": "l" },
+    { "name": "Diesel", "unit": "l" },
+    { "name": "E85", "unit": "l" },
+    { "name": "Fordonsgas", "unit": "kg" }
+]
 DATA_TZ = "Europe/Stockholm"
+DATA_CURRENCY = "Kr"
 
 CONF_INTEGRATION_ID = "id"
 CONF_UPDATE_INTERVAL = "update_interval"
