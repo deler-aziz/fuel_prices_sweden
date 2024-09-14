@@ -16,6 +16,7 @@ from .const import (DOMAIN,
                     DATA_PREEM_FUEL_TYPES,
                     DATA_SHELL_FUEL_TYPES,
                     DATA_ST1_FUEL_TYPES)
+from .misc import get_attribute_station_name
 
 logger = logging.getLogger(f"custom_components.{DOMAIN}")
 
@@ -42,7 +43,7 @@ def validate_config(config: dict) -> bool:
                          station.get(CONF_NAME),
                          DATA_STATIONS_NAME)
             return False
-        station_name:str = station.get(CONF_NAME).upper().replace(" ", "")
+        station_name:str = get_attribute_station_name(station.get(CONF_NAME))
         fuel_types = station.get(CONF_FUELTYPES)
         if fuel_types is None:
             logger.error("[validator][validate_config] Invalid fuel_types for station: %s" ,
@@ -50,7 +51,7 @@ def validate_config(config: dict) -> bool:
             return False
 
         for fuel_type in fuel_types:
-            supported_fuel_types = getattr(this_module, "DATA_"+station_name+"_FUEL_TYPES")
+            supported_fuel_types = [item["name"] for item in getattr(this_module, "DATA_"+station_name+"_FUEL_TYPES")]
             if fuel_type not in  supported_fuel_types:
                 logger.error("[validator][validate_config] Invalid fuel_types for station: %s. Supported fuel types: %s"
                              , station.get(CONF_NAME),

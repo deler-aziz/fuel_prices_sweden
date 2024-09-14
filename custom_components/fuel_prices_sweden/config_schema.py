@@ -66,7 +66,7 @@ def station_config_schema(step_id, config: dict = None) -> dict:
             CONF_FUELTYPES, default=config.get(CONF_FUELTYPES)
         ): SelectSelector(
             SelectSelectorConfig(
-                options=options,
+                options=[item["name"] for item in options],
                 multiple=True,
                 mode=SelectSelectorMode.LIST,
             )

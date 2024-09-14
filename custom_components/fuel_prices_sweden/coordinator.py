@@ -4,7 +4,7 @@ from datetime import timedelta, datetime
 import pytz
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from .const import DOMAIN, DATA_TZ
+from .const import DOMAIN, DATA_TZ, CONF_UPDATED_AT
 from .fuel_pirce_provider import FuelPriceProvider
 
 logger = logging.getLogger(f"custom_components.{DOMAIN}")
@@ -23,13 +23,12 @@ class FuelPricesCoordinator(DataUpdateCoordinator):
 
         )
         self._provider = provider
-        self.updated_at = None
 
     async def _async_update_data(self):
         logger.debug("[coordinator][update_data] Started")
         try:
             data = await self._provider.async_fetch()
-            self.updated_at = datetime.now(TZ).strftime("%y/%m/%d, %H:%M:%S")
+            data.setdefault(CONF_UPDATED_AT, datetime.now(TZ).strftime("%y/%m/%d %H:%M:%S"))
             logger.debug("[coordinator][update_data] Data fetch completed")
             return data
         except Exception as e:  # pylint: disable=broad-exception-caught
