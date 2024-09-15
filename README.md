@@ -75,7 +75,8 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
         <tr><td>GoEasy Bensin 95 (E10)</td><td>GoEasy Bensin Extra 98 (E5)</td><td>GoEasy Diesel (B7)</td></tr>
         <tr><td>GoEasy Diesel Extra (B0)</td><td>Neste MY Förnybar Diesel (HVO100)</td><td>Etanol E85</td></tr>
         <tr><td>Biogas Bas Sthlm & Uppsala län</td><td>Biogas Bas Övriga landet</td><td>Biogas 100 Sthlm & Uppsala län</td></tr>
-        <tr><td>Biogas 100 Övriga landet</td><td></td><td></td></tr>
+        <tr><td>Biogas 100 Övriga landet</td><td>AdBlue</td><td>Snabbladdning 150 kW</td></tr>
+        <tr><td>Snabbladdning 50 kW</td><td></td><td></td></tr>
     </table>
 
 - Preem
