@@ -11,7 +11,8 @@ from .const import (DOMAIN,
                     DATA_OKQ8_FUEL_TYPES,
                     DATA_PREEM_FUEL_TYPES,
                     DATA_SHELL_FUEL_TYPES,
-                    DATA_ST1_FUEL_TYPES)
+                    DATA_ST1_FUEL_TYPES,
+                    DATA_TANKA_FUEL_TYPES)
 from .misc import get_attribute_station_name
 
 logger = logging.getLogger(f"custom_components.{DOMAIN}")

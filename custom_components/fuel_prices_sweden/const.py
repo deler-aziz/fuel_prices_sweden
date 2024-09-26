@@ -18,13 +18,16 @@ DATA_STATION_SHELL = "Shell"
 DATA_STATION_SHELL_URL = "https://www.shell.se/foretagskund/listpriser/listpriser-shell-foretagskort.html"
 DATA_STATION_ST1 = "St1"
 DATA_STATION_ST1_URL = "https://www.shell.se/foretagskund/listpriser/listpriser-shell-foretagskort.html"
+DATA_STATION_TANKA = "Tanka"
+DATA_STATION_TANKA_URL = "https://tanka.se/api/prices/single"
 DATA_STATIONS_NAME = sorted(
     [DATA_STATION_CIRCLE_K,
      DATA_STATION_INGO,
      DATA_STATION_OKQ8,
      DATA_STATION_PREEM,
      DATA_STATION_SHELL,
-     DATA_STATION_ST1]
+     DATA_STATION_ST1,
+     DATA_STATION_TANKA]
 )
 DATA_CIRCLEK_FUEL_TYPES = [
     { "name": "miles 95", "unit": "l" },
@@ -78,6 +81,12 @@ DATA_ST1_FUEL_TYPES = [
     { "name": "Diesel", "unit": "l" },
     { "name": "E85", "unit": "l" },
     { "name": "Fordonsgas", "unit": "kg" }
+]
+DATA_TANKA_FUEL_TYPES = [
+    { "name": "95", "unit": "l" },
+    { "name": "e85", "unit": "l" },
+    { "name": "diesel", "unit": "l" },
+    { "name": "hvo100", "unit": "l" }
 ]
 DATA_TZ = "Europe/Stockholm"
 DATA_CURRENCY = "Kr"

@@ -98,6 +98,11 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
         <tr><td>E85</td><td>Fordonsgas</td><td></td></tr>
     </table>
 
+- Tanka
+    <table>
+        <tr><td>95</td><td>E85</td><td>Diesel</td></tr>
+        <tr><td>HVO100</td><td></td><td></td></tr>
+    </table>
 
 ## 🙏🏽 Special thanks
 - [ludeeus](https://github.com/ludeeus) for [integration_blueprint](https://github.com/ludeeus/integration_blueprint)
