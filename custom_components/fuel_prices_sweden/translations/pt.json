@@ -1,0 +1,30 @@
+{
+    "title": "Preços de Combustível Suécia",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Preços de Combustível Suécia",
+                "description": "Configurar a integração dos preços de combustível na Suécia.",
+                "data": {
+                    "stations": "Estações das quais pretende obter o preço do combustível.",
+                    "update_interval": "Intervalo de atualização de preços (Mínimo 60 minutos)"
+                }
+            },
+            "station": {
+                "title": "{station_name}",
+                "description": "Selecione os tipos de combustível.",
+                "data": {
+                    "fuel_type": "Tipos de combustível"
+                }
+            }
+        },
+        "error": {
+            "invalid_update_interval": "O intervalo de atualização deve ser no mínimo 60",
+            "no_station_selected": "Por favor, selecione pelo menos uma estação",
+            "no_fuel_type_selected": "Por favor, selecione pelo menos um tipo de combustível"
+        },
+        "abort": {
+            "already_configured": "A integração já está configurada"
+        }
+    }
+}
