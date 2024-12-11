@@ -2,6 +2,7 @@
 import logging
 import requests
 import json
+import jmespath
 from bs4 import BeautifulSoup as BS, ResultSet
 
 from .const import (
@@ -79,15 +80,21 @@ class FuelPriceProvider:
     async def async_shell_prices(self, fuel_types) -> list[FuelPrice]:
         """Get Shell station fuel prices."""
         logger.debug("[fuel_prices_provider][shell_prices] Started")
-        tables = await self._asyc_get_html_tables(DATA_STATION_SHELL_URL)
-        rows = tables[0].find_all("tr")
+        response = await self.hass.async_add_executor_job(self._get, DATA_STATION_SHELL_URL)
+        jsonData = json.loads(response.text)
+        queryResult = jmespath.search("children[].children[].children[].children[?model.title == 'Shellstationer'].model | [0] | [0]", jsonData)
+        table = BS(queryResult['text'], "html.parser")
+        rows = table.find_all("tr")
         return self._extratct_fuel_type_price_html(rows, fuel_types, "Shell", 0, 1)
 
     async def async_st1_prices(self, fuel_types) -> list[FuelPrice]:
         """Get St1 station fuel prices."""
         logger.debug("[fuel_prices_provider][st1_prices] Started")
-        tables = await self._asyc_get_html_tables(DATA_STATION_ST1_URL)
-        rows = tables[1].find_all("tr")
+        response = await self.hass.async_add_executor_job(self._get, DATA_STATION_ST1_URL)
+        jsonData = json.loads(response.text)
+        queryResult = jmespath.search("children[].children[].children[].children[?model.title == 'St1-stationer'].model | [0] | [0]", jsonData)
+        table = BS(queryResult['text'], "html.parser")
+        rows = table.find_all("tr")
         return self._extratct_fuel_type_price_html(rows, fuel_types, "St1", 0, 1)
 
     async def async_tanka_prices(self, fuel_types) -> list[FuelPrice]:
