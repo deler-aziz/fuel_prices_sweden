@@ -146,19 +146,19 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
     @property
     def state(self) -> float:
         """Return the state of the sensor and perform unit conversions, if needed."""
-        return self._coordinator.data.get(self._id)["price"] or 0
+        return 0 if self._coordinator.data is None else self._coordinator.data.get(self._id, {}).get("price", 0)
 
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement this sensor."""
-        return self._coordinator.data.get(self._id)["unit"]
+        return "" if self._coordinator.data is None else self._coordinator.data.get(self._id, {}).get("unit", "")
 
 
     @property
     def extra_state_attributes(self):
         """Get extra_state_attributes."""
         attr = {}
-        attr[CONF_UPDATED_AT] = self._coordinator.data.get(CONF_UPDATED_AT)
+        attr[CONF_UPDATED_AT] = "Unknown" if self._coordinator.data is None else self._coordinator.data.get(CONF_UPDATED_AT, "Unknown")
         return attr
 
     @callback
