@@ -37,15 +37,18 @@ class FuelPriceProvider:
         # Re-set the session for each run
         self._session = requests.Session()
 
-
         result: FuelPriceFetchResult = {}
 
         for station in self._stations:
-            prices = await getattr(self, "async_" + get_entity_station(station[CONF_NAME]) + "_prices")(
+            try:
+                prices = await getattr(self, "async_" + get_entity_station(station[CONF_NAME]) + "_prices")(
                 station[CONF_FUELTYPES]
-            )
-            for price in prices:
-                result.setdefault(price["name"], {"price": price["price"], "unit": price["unit"]})
+                )
+                for price in prices:
+                    result.setdefault(price["name"], {"price": price["price"], "unit": price["unit"]})
+            except Exception as e:
+                logger.error(f"[fuel_prices_provider][fetch] Error fetching prices for {station[CONF_NAME]}: {e}")
+                continue
 
         return result
 
