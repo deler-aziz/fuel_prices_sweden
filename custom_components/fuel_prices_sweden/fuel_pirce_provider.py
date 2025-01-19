@@ -56,28 +56,28 @@ class FuelPriceProvider:
         """Get Circle K station fuel prices."""
         logger.debug("[fuel_prices_provider][circlek_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_CIRCLE_K_URL)
-        rows = tables[0].find_all("tr")
+        rows = self._get_rows(tables, 0)
         return self._extratct_fuel_type_price_html(rows, fuel_types, "Circle K", 1, 2)
 
     async def async_ingo_prices(self, fuel_types) -> list[FuelPrice]:
         """Get Ingo station fuel prices."""
         logger.debug("[fuel_prices_provider][ingo_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_INGO_URL)
-        rows = tables[0].find_all("tr")
+        rows = self._get_rows(tables, 0)
         return self._extratct_fuel_type_price_html(rows, fuel_types, "Ingo", 1, 2)
 
     async def async_okq8_prices(self, fuel_types) -> list[FuelPrice]:
         """Get OKQ8 station fuel prices."""
         logger.debug("[fuel_prices_provider][okq8_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_OKQ8_URL)
-        rows = tables[0].find_all("tr")
+        rows = self._get_rows(tables, 0)
         return self._extratct_fuel_type_price_html(rows, fuel_types, "OKQ8", 0, 1)
 
     async def async_preem_prices(self, fuel_types) -> list[FuelPrice]:
         """Get Preem station fuel prices."""
         logger.debug("[fuel_prices_provider][preem_prices] Started")
         tables = await self._asyc_get_html_tables(DATA_STATION_PREEM_URL)
-        rows = tables[0].find_all("tr")
+        rows = self._get_rows(tables, 0)
         return self._extratct_fuel_type_price_html(rows, fuel_types, "Preem", 0, 1)
 
     async def async_shell_prices(self, fuel_types) -> list[FuelPrice]:
@@ -116,6 +116,14 @@ class FuelPriceProvider:
     def _get(self, url) -> requests.Response:
         return self._session.get(url=url, timeout=10)
 
+    def _get_rows(self, tables: ResultSet, tableIndex: int):
+        rows = None
+        if tables and len(tables) > 0:
+            table = tables[tableIndex]
+            if table:
+                rows = table.find_all("tr") or None
+        return rows
+
     def _extratct_fuel_type_price_html(self, rows,
                                   fuel_types,
                                   station_name,
@@ -124,6 +132,11 @@ class FuelPriceProvider:
         result: list[FuelPrice] = []
         logger.debug("[fuel_prices_provider][_extratct_fuel_type_price_html] Started")
         station_entity_name = get_entity_station(station_name)
+
+        if rows is None:
+            logger.warning(f"[fuel_prices_provider][_extratct_fuel_type_price_html] No prices found for {station_name}")
+            return self._set_default_prices(fuel_types, station_name)
+
         for row in rows:
             th = row.find_all("th")
             if th:
@@ -138,6 +151,21 @@ class FuelPriceProvider:
                         + get_entity_fuel_type(self._sanitize_fuel_type_name(cells[name_col].text))
                     ),
                     price=self._sanitize_fuel_type_price(cells[price_col].text),
+                    unit=get_fuel_type_unit(station_name, fuel_type_name)))
+        return result
+
+    def _set_default_prices(self, fuel_types, station_name):
+        result: list[FuelPrice] = []
+        logger.debug("[fuel_prices_provider][_set_default_prices] Started")
+        station_entity_name = get_entity_station(station_name)
+        for fuel_type_name in fuel_types:
+                result.append(FuelPrice(
+                    name=(
+                        station_entity_name
+                        + "_"
+                        + get_entity_fuel_type(fuel_type_name)
+                    ),
+                    price=0,
                     unit=get_fuel_type_unit(station_name, fuel_type_name)))
         return result
 
