@@ -10,7 +10,7 @@ def get_entity_fuel_type(name: str) -> str:
     return _convert(name)
 
 def get_attribute_station_name(name: str) -> str:
-    """Get station name to as attribute."""
+    """Get station name as attribute."""
     return name.upper().replace(" ", "")
 
 def _convert(name: str) -> str:

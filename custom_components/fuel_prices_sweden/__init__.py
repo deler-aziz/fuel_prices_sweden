@@ -9,7 +9,7 @@ from homeassistant.helpers.typing import ConfigType
 from homeassistant.const import Platform
 
 from .coordinator import FuelPricesCoordinator
-from .fuel_pirce_provider import FuelPriceProvider
+from .fuel_price_provider import FuelPriceProvider
 from .const import (
     DOMAIN,
     CONF_UPDATE_INTERVAL,

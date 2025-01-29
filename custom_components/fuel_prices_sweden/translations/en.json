@@ -4,7 +4,7 @@
         "step": {
             "user": {
                 "title": "Fuel Prices Sweden",
-                "description": "Setup fuel price in Sweden integration.",
+                "description": "Setup fuel prices in Sweden integration.",
                 "data": {
                     "stations": "Stations which you want to get the fuel price from.",
                     "update_interval": "Price update interval (Minimum 60 minutes)"

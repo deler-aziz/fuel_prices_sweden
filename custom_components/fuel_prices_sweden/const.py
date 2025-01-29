@@ -89,13 +89,13 @@ DATA_TANKA_FUEL_TYPES = [
     { "name": "hvo100", "unit": "l" }
 ]
 DATA_TZ = "Europe/Stockholm"
-DATA_CURRENCY = "Kr"
+DATA_CURRENCY = "kr"
 
 CONF_INTEGRATION_ID = "id"
 CONF_UPDATE_INTERVAL = "update_interval"
 CONF_STATIONS = "stations"
 CONF_NAME = "name"
-CONF_FUELTYPES = "fuel_types"
+CONF_FUEL_TYPES = "fuel_types"
 CONF_FUEL_TYPE = "fuel_type"
 CONF_PRICE = "price"
 CONF_UPDATED_AT = "updated_at"

@@ -13,7 +13,7 @@ from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from .const import (DOMAIN,
                     CONF_STATIONS,
-                    CONF_FUELTYPES,
+                    CONF_FUEL_TYPES,
                     CONF_NAME,
                     CONF_FUEL_TYPE,
                     CONF_UPDATED_AT,
@@ -35,7 +35,7 @@ def _get_entities(hass:  HomeAssistant, config, entry_id, is_manual = False):
 
     entities: list(FuelPriceEntity) = []
     for station in config[CONF_STATIONS]:
-        for fuel_type in station[CONF_FUELTYPES]:
+        for fuel_type in station[CONF_FUEL_TYPES]:
             entities.append(
                 FuelPriceEntity(
                     data={CONF_NAME: station[CONF_NAME],
