@@ -5,7 +5,7 @@ import pytz
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from .const import DOMAIN, DATA_TZ, CONF_UPDATED_AT
-from .fuel_pirce_provider import FuelPriceProvider
+from .fuel_price_provider import FuelPriceProvider
 
 logger = logging.getLogger(f"custom_components.{DOMAIN}")
 TZ = pytz.timezone(DATA_TZ)

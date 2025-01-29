@@ -8,7 +8,7 @@ from .const import (DOMAIN,
                     CONF_NAME,
                     CONF_UPDATE_INTERVAL,
                     CONF_STATIONS,
-                    CONF_FUELTYPES,
+                    CONF_FUEL_TYPES,
                     DATA_STATIONS_NAME,
                     DATA_CIRCLEK_FUEL_TYPES,
                     DATA_INGO_FUEL_TYPES,
@@ -45,7 +45,7 @@ def validate_config(config: dict) -> bool:
                          DATA_STATIONS_NAME)
             return False
         station_name:str = get_attribute_station_name(station.get(CONF_NAME))
-        fuel_types = station.get(CONF_FUELTYPES)
+        fuel_types = station.get(CONF_FUEL_TYPES)
         if fuel_types is None:
             logger.error("[validator][validate_config] Invalid fuel_types for station: %s" ,
                           station.get(CONF_NAME))

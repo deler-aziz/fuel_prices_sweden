@@ -7,7 +7,7 @@ from homeassistant.exceptions import HomeAssistantError
 from .const import (
     DOMAIN,
     SCHEMA_VERSION,
-    CONF_FUELTYPES,
+    CONF_FUEL_TYPES,
     CONF_STATIONS,
     CONF_UPDATE_INTERVAL,
     CONF_INTEGRATION_ID,
@@ -32,8 +32,8 @@ async def validate_input_user(data: dict):
 
 async def validate_input_station(data: dict):
     """Validate input [STEP: user]."""
-    if len(data[CONF_FUELTYPES]) < 1:
-        raise NoFuelTypSelected
+    if len(data[CONF_FUEL_TYPES]) < 1:
+        raise NoFuelTypeSelected
     return data
 
 
@@ -77,7 +77,7 @@ class FuelPricesSwedenFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             )
         except NoStationSelected:
             self._errors[CONF_STATIONS] = "no_station_selected"
-            logger.debug("[config_flow][setup_user(validate)] No station is selcted")
+            logger.debug("[config_flow][setup_user(validate)] No station is selected")
             return self.async_show_form(
                 step_id="user",
                 data_schema=vol.Schema(main_config_schema(user_input)),
@@ -89,7 +89,7 @@ class FuelPricesSwedenFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         await self.async_set_unique_id(integration_id)
         self._data[CONF_INTEGRATION_ID] = integration_id
         self._data[CONF_UPDATE_INTERVAL] = user_input[CONF_UPDATE_INTERVAL]
-        self._data[CONF_STATIONS] = [{CONF_NAME: name, CONF_FUELTYPES: []} for name in user_input[CONF_STATIONS]]
+        self._data[CONF_STATIONS] = [{CONF_NAME: name, CONF_FUEL_TYPES: []} for name in user_input[CONF_STATIONS]]
 
         self._stations = user_input[CONF_STATIONS]
         self._current_station_index = 0
@@ -107,8 +107,8 @@ class FuelPricesSwedenFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             try:
                 user_input = await validate_input_station(user_input)
-            except NoFuelTypSelected:
-                self._errors[CONF_FUELTYPES] = "no_fuel_type_selected"
+            except NoFuelTypeSelected:
+                self._errors[CONF_FUEL_TYPES] = "no_fuel_type_selected"
                 logger.debug(
                     "[config_flow][setup_station(validate)] No fuel type selected"
                 )
@@ -122,8 +122,8 @@ class FuelPricesSwedenFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     last_step=last_step,
                 )
             self._data[CONF_STATIONS][self.get_station_index(current_station)][
-                CONF_FUELTYPES
-            ] = user_input.get(CONF_FUELTYPES)
+                CONF_FUEL_TYPES
+            ] = user_input.get(CONF_FUEL_TYPES)
 
             if not last_step:
                 self._current_station_index = self._current_station_index + 1
@@ -163,8 +163,8 @@ class InvalidUpdateInterval(HomeAssistantError):
 
 
 class NoStationSelected(HomeAssistantError):
-    """Error: No station is seleced."""
+    """Error: No station is selected."""
 
 
-class NoFuelTypSelected(HomeAssistantError):
-    """Error: No fuel type is seleced."""
+class NoFuelTypeSelected(HomeAssistantError):
+    """Error: No fuel type is selected."""

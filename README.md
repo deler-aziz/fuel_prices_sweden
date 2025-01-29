@@ -13,7 +13,7 @@
 </p>
 
 
-The integration is providing fuel prices in Sweden. It is using a web scraper to scrap the stations website and extarct the prices.
+The integration is providing fuel prices in Sweden. It is using a web scraper to scrape the stations website and extract the prices.
 
 
 ## 🚀 Installation
@@ -57,20 +57,19 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 ## ⛽︎ Supported stations and fuel types
 
 - **Circle K**
-
     <table>
         <tr><td>miles 95</td><td>miles 98</td><td>miles+ 98</td></tr>
         <tr><td>miles diesel</td><td>miles+ diesel</td><td>HVO100</td></tr>
         <tr><td>Fordonsgas</td><td>E85</td><td></td></tr>
     </table>
 
-- Ingo
+- **Ingo**
     <table>
         <tr><td>Bensin 95</td><td>Bensin 98 E5</td></tr>
         <tr><td>Diesel</td><td>Etanol</td></tr>
     </table>
 
-- OKQ8
+- **OKQ8**
     <table>
         <tr><td>GoEasy Bensin 95 (E10)</td><td>GoEasy Bensin Extra 98 (E5)</td><td>GoEasy Diesel (B7)</td></tr>
         <tr><td>GoEasy Diesel Extra (B0)</td><td>Neste MY Förnybar Diesel (HVO100)</td><td>Etanol E85</td></tr>
@@ -79,26 +78,26 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
         <tr><td>Snabbladdning 50 kW</td><td></td><td></td></tr>
     </table>
 
-- Preem
+- **Preem**
     <table>
         <tr><td>Preem Evolution Bensin 95</td><td>Preem Evolution Diesel</td></tr>
         <tr><td>HVO100</td><td>E85</td></tr>
     </table>
 
-- Shell
+- **Shell**
     <table>
         <tr><td>Blyfri 95</td><td>Blyfri 98</td><td>V-Power</td></tr>
         <tr><td>CityDiesel</td><td>E85</td><td>Biogas</td></tr>
         <tr><td>HVO</td><td></td><td></td></tr>
     </table>
 
-- St1
+- **St1**
     <table>
         <tr><td>Bensin 95</td><td>Diesel RE+r</td><td>Diesel</td></tr>
         <tr><td>E85</td><td>Fordonsgas</td><td></td></tr>
     </table>
 
-- Tanka
+- **Tanka**
     <table>
         <tr><td>95</td><td>E85</td><td>Diesel</td></tr>
         <tr><td>HVO100</td><td></td><td></td></tr>
