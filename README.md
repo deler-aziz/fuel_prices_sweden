@@ -13,7 +13,7 @@
 </p>
 
 
-The integration is providing fuel prices in Sweden. It is using a web scraper to scrap the stations website and extarct the prices.
+The integration provides fuel prices in Sweden by using a web scraper to extract prices from the [Bensinpriser](https://bensinpriser.nu/) website.
 
 
 ## 🚀 Installation
@@ -34,79 +34,17 @@ The integration is providing fuel prices in Sweden. It is using a web scraper to
 1. Go to `Settings->Devices&Services->Integrations` and click on `Add integration`
 2. Search for `Fuel Prices Sweden` and follow the configuration wizard
 
-### Using configuration.yaml
-1. Add `fuel_prices_sweden` section into your configuration.yaml. Check the following example
-
-    ```
-    fuel_prices_sweden:
-      update_interval: 60
-      stations:
-        - name: St1
-          fuel_types:
-            - Fordonsgas
-            - Diesel
-        - name: Circle K
-          fuel_types:
-            - miles 95
-            - miles 98
-    ```
-2. Make sure you only use the [supported station and fuel types](#Supported-stations-and-fuel-types)
-3. Restart your Home Assistant
+### Using configuration.yaml (Currently not supported)
 
 
-## ⛽︎ Supported stations and fuel types
 
-- **Circle K**
+## ⛽︎ Data source
 
-    <table>
-        <tr><td>miles 95</td><td>miles 98</td><td>miles+ 98</td></tr>
-        <tr><td>miles diesel</td><td>miles+ diesel</td><td>HVO100</td></tr>
-        <tr><td>Fordonsgas</td><td>E85</td><td></td></tr>
-    </table>
+The integration retrieves data from [Bensinpriser](https://bensinpriser.nu/).
 
-- Ingo
-    <table>
-        <tr><td>Bensin 95</td><td>Bensin 98 E5</td></tr>
-        <tr><td>Diesel</td><td>Etanol</td></tr>
-    </table>
+**NOTE: Prices may not always be accurate**.
 
-- OKQ8
-    <table>
-        <tr><td>GoEasy Bensin 95 (E10)</td><td>GoEasy Bensin Extra 98 (E5)</td><td>GoEasy Diesel (B7)</td></tr>
-        <tr><td>GoEasy Diesel Extra (B0)</td><td>Neste MY Förnybar Diesel (HVO100)</td><td>Etanol E85</td></tr>
-        <tr><td>Biogas Bas Sthlm & Uppsala län</td><td>Biogas Bas Övriga landet</td><td>Biogas 100 Sthlm & Uppsala län</td></tr>
-        <tr><td>Biogas 100 Övriga landet</td><td>AdBlue</td><td>Snabbladdning 150 kW</td></tr>
-        <tr><td>Snabbladdning 50 kW</td><td></td><td></td></tr>
-    </table>
 
-- Preem
-    <table>
-        <tr><td>Preem Evolution Bensin 95</td><td>Preem Evolution Diesel</td></tr>
-        <tr><td>HVO100</td><td>E85</td></tr>
-    </table>
-
-- Shell
-    <table>
-        <tr><td>Blyfri 95</td><td>Blyfri 98</td><td>V-Power</td></tr>
-        <tr><td>CityDiesel</td><td>E85</td><td>Biogas</td></tr>
-        <tr><td>HVO</td><td></td><td></td></tr>
-    </table>
-
-- St1
-    <table>
-        <tr><td>Bensin 95</td><td>Diesel RE+r</td><td>Diesel</td></tr>
-        <tr><td>E85</td><td>Fordonsgas</td><td></td></tr>
-    </table>
-
-- Tanka
-    <table>
-        <tr><td>95</td><td>E85</td><td>Diesel</td></tr>
-        <tr><td>HVO100</td><td></td><td></td></tr>
-    </table>
-
-## 🙏🏽 Special thanks
-- [ludeeus](https://github.com/ludeeus) for [integration_blueprint](https://github.com/ludeeus/integration_blueprint)
-- [J-Lindvig](https://github.com/J-Lindvig) for [the idea](https://github.com/J-Lindvig/Fuelprices_DK)
 
 ***
 [releases]: https://github.com/deler-aziz/fuel_prices_sweden/releases

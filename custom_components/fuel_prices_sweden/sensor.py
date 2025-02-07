@@ -9,156 +9,93 @@ from homeassistant.components.sensor import (
 from homeassistant.core import callback, HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from .const import (DOMAIN,
-                    CONF_STATIONS,
-                    CONF_FUELTYPES,
-                    CONF_NAME,
-                    CONF_FUEL_TYPE,
-                    CONF_UPDATED_AT,
-                    CONF_IS_MANUAL,
                     DEVICE_MODEL,
-                    DEVICE_MANUFACTURER,
-                    MANUAL_CONFIG_ENTRY_ID)
-from .misc import get_entity_station, get_entity_fuel_type
+                    DEVICE_MANUFACTURER)
+from .misc import get_entity_name, get_entity_station
 
 logger = logging.getLogger(f"custom_components.{DOMAIN}")
-
-def _get_entities(hass:  HomeAssistant, config, entry_id, is_manual = False):
-    logger.debug("[sensor][_get_entities] Started")
-
-    coordinator = hass.data[DOMAIN][entry_id]["coordinator"]
-    if coordinator is None:
-        logger.error("[sensor][_get_entities] No coordinator found")
-        return None
-
-    entities: list(FuelPriceEntity) = []
-    for station in config[CONF_STATIONS]:
-        for fuel_type in station[CONF_FUELTYPES]:
-            entities.append(
-                FuelPriceEntity(
-                    data={CONF_NAME: station[CONF_NAME],
-                          CONF_FUEL_TYPE: fuel_type,
-                          CONF_IS_MANUAL: is_manual},
-                    coordinator=coordinator,
-                )
-            )
-
-    return entities
-
-
-async def async_setup_platform(hass: HomeAssistant,
-                               config: ConfigType, # pylint: disable=unused-argument
-                               async_add_devices: AddEntitiesCallback,
-                               discovery_info: DiscoveryInfoType | None = None) -> None:
-    """Start the setup sensor platform for the manual config yaml."""
-    logger.debug("[sensor][setup_platform] Started")
-    if discovery_info is None:
-        logger.error("[sensor][setup_entry] No discovery_info")
-        return
-    entities = _get_entities(hass, discovery_info, MANUAL_CONFIG_ENTRY_ID, True)
-    if entities is None:
-        return
-    async_add_devices(entities, True)
-    logger.debug("[sensor][setup_platform] Completed")
-
-
-async def async_setup_entry(hass: HomeAssistant,
-                            config_entry: ConfigEntry,
-                            async_add_entities: AddEntitiesCallback) -> None:
-    """Start the setup sensor platform for the ui."""
-    config = config_entry.data
-    logger.debug("[sensor][setup_entry] Started")
-    entities = _get_entities(hass, config, config_entry.entry_id)
-    if entities is None:
-        return
-    async_add_entities(entities, True)
-    logger.debug("[sensor][setup_entry] Completed")
-
 
 class FuelPriceEntity(CoordinatorEntity, SensorEntity):
     """Representation of a sensor."""
 
     _attr_device_class = SensorDeviceClass.MONETARY
-    _attr_state_class = SensorStateClass.TOTAL
+    _attr_state_class: SensorStateClass | str | None = SensorStateClass.TOTAL
 
-    def __init__(self, data, coordinator):
+    def __init__(self, data: dict, coordinator):
         """Initialize."""
         super().__init__(coordinator)
+
         self._coordinator = coordinator
-        self._is_manual = bool(data[CONF_IS_MANUAL])
-        self._id = (
-            get_entity_station(data[CONF_NAME])
-            + "_"
-            + get_entity_fuel_type(data[CONF_FUEL_TYPE])
-            )
-        self.entity_id = "sensor." + self._id
-        self._sensor_name = data[CONF_FUEL_TYPE]
-        self._attr_native_value = 0
+        self._sensor_name: str = data.get("name", "")
+        self._device_id: str = data.get("entry_id", "")
+        self._device_name: str = data.get("entry_name", "")
+
+        station_name = get_entity_station(self._device_name)
+        fuel_type_name = get_entity_name(self._sensor_name)
+        self._sensor_id = f"{station_name}_{fuel_type_name}"
+        self.entity_id = f"sensor.{self._sensor_id}"
+
+        self._attr_native_value: float = 0.0
         self._attr_suggested_display_precision = 2
-        self._updated_at = None
-        self._device_id = get_entity_station(data[CONF_NAME])
-        self._device_name = data[CONF_NAME]
 
     @property
-    def should_poll(self):
+    def should_poll(self) -> bool:
         """No need to poll. Coordinator notifies entity of updates."""
         return False
 
     @property
-    def unique_id(self):
-        """Get unique_id."""
-        return f"{self._id}"
+    def unique_id(self) -> str:
+        """Return a unique ID for this entity."""
+        return self._sensor_id
 
     @property
-    def device_class(self):
-        """Get device_class."""
-        return self._attr_device_class
-
-    @property
-    def state_class(self) -> str:
-        """Get state_class."""
+    def state_class(self) -> SensorStateClass | str | None:
+        """Return a unique ID for this entity."""
         return self._attr_state_class
 
     @property
-    def device_info(self):
-        """Get device_info."""
+    def device_info(self) -> dict:
+        """Return device information for Home Assistant."""
         return {
             "identifiers": {(DOMAIN, self._device_id)},
             "name": self._device_name,
             "manufacturer": DEVICE_MANUFACTURER,
-            "model": DEVICE_MODEL
+            "model": DEVICE_MODEL,
         }
 
     @property
-    def name(self):
-        """Get name."""
-        if self._is_manual:
-            return f"{self._device_name} - {self._sensor_name}"
+    def name(self) -> str:
+        """Return the name of the entity."""
         return self._sensor_name
 
     @property
-    def icon(self):
-        """Get icon."""
+    def icon(self) -> str:
+        """Return the icon for the entity."""
         return "mdi:gas-station"
 
     @property
     def state(self) -> float:
-        """Return the state of the sensor and perform unit conversions, if needed."""
-        return 0 if self._coordinator.data is None else self._coordinator.data.get(self._id, {}).get("price", 0)
+        """Return the state of the sensor (fuel price)."""
+        if not self._coordinator.data:
+            return 0.0
+        return self._coordinator.data.get("fuel_prices", {}).get(self._sensor_name, 0.0)
 
     @property
     def unit_of_measurement(self) -> str:
-        """Return the unit of measurement this sensor."""
-        return "" if self._coordinator.data is None else self._coordinator.data.get(self._id, {}).get("unit", "")
+        """Return the unit of measurement for this sensor."""
+        if self._sensor_name.lower() == "fordonsgas":
+            return "kr/kg"
+        return "kr/l"
 
 
     @property
-    def extra_state_attributes(self):
+    def extra_state_attributes(self) -> dict:
         """Get extra_state_attributes."""
         attr = {}
-        attr[CONF_UPDATED_AT] = "Unknown" if self._coordinator.data is None else self._coordinator.data.get(CONF_UPDATED_AT, "Unknown")
+        if self._coordinator.data and "updated_at" in self._coordinator.data:
+            attr["updated_at"] = self._coordinator.data.get("updated_at")
         return attr
 
     @callback
@@ -166,3 +103,45 @@ class FuelPriceEntity(CoordinatorEntity, SensorEntity):
         """Handle updated data from the coordinator."""
         self.async_write_ha_state()
 
+
+
+def _get_entities(hass: HomeAssistant, config, entry_id) -> list[FuelPriceEntity] | None:
+    """Retrieve fuel price entities."""
+    logger.debug("[sensor][_get_entities] Started")
+
+    coordinator = hass.data.get(DOMAIN, {}).get(entry_id, {}).get("coordinator")
+    if not coordinator or not coordinator.data:
+        logger.error("[sensor][_get_entities] No valid coordinator or data found")
+        return None
+
+    station_name = config.get("station", {}).get("name")
+    fuel_prices = coordinator.data.get("fuel_prices")
+
+    if not station_name or not fuel_prices:
+        logger.error("[sensor][_get_entities] Missing station name or fuel prices in config")
+        return None
+
+    return [
+        FuelPriceEntity(
+            {"entry_id": entry_id, "entry_name": station_name, "name": fuel_type},
+            coordinator
+        )
+        for fuel_type in fuel_prices
+    ]
+
+
+async def async_setup_entry(hass: HomeAssistant,
+                            config_entry: ConfigEntry,
+                            async_add_entities: AddEntitiesCallback) -> None:
+    """Start the setup sensor platform for the ui."""
+    logger.debug("[sensor][async_setup_entry] Started")
+
+    config = config_entry.data
+    logger.debug("[sensor][async_setup_entry] Config: %s", config)
+
+    entities = _get_entities(hass, config, config_entry.entry_id)
+    if entities is None:
+        return
+
+    async_add_entities(entities, True)
+    logger.debug("[sensor][async_setup_entry] Completed")

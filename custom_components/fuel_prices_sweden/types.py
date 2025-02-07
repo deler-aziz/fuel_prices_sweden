@@ -3,12 +3,10 @@ from __future__ import annotations
 
 from typing import TypedDict
 
-class FuelPrice(TypedDict):
-    """FuelPrice type."""
+
+class FuelPriceFetchResult(TypedDict):
+    """FuelPriceFetchResult type."""
 
     name: str
-    price: float
-    unit: str
-
-
-FuelPriceFetchResult = dict[str, float, str]
+    fuel_prices: dict
+    updated_at: str
