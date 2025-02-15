@@ -1,6 +1,5 @@
 {
     "title": "Fuel Prices Sweden",
-    "flow_title": "Fuel Prices Sweden Setup",
     "config": {
         "step": {
             "user": {
