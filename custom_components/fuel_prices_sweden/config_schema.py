@@ -6,73 +6,62 @@ from homeassistant.helpers.selector import (
     SelectSelectorMode,
 )
 from .const import (
-    DATA_STATION_CIRCLE_K,
-    DATA_STATION_INGO,
-    DATA_STATION_OKQ8,
-    DATA_STATION_PREEM,
-    DATA_STATION_SHELL,
-    DATA_STATION_ST1,
-    DATA_STATION_TANKA,
-    DATA_STATIONS_NAME,
-    DATA_CIRCLEK_FUEL_TYPES,
-    DATA_INGO_FUEL_TYPES,
-    DATA_OKQ8_FUEL_TYPES,
-    DATA_PREEM_FUEL_TYPES,
-    DATA_SHELL_FUEL_TYPES,
-    DATA_ST1_FUEL_TYPES,
-    DATA_TANKA_FUEL_TYPES,
-    CONF_STATIONS,
-    CONF_FUELTYPES,
+    CONF_STATION,
+    CONF_COUNTY,
+    CONF_MUNICIPALITY,
     CONF_UPDATE_INTERVAL,
-    DEFAULT_UPDATE_INTERVAL,
+    DEFAULT_UPDATE_INTERVAL
 )
 
-
-def main_config_schema(config: dict = None) -> dict:
+def main_config_schema(config: dict | None, counties: list[str]) -> dict:
     """Get main schema configuration dict."""
     if config is None:
-        config = {CONF_UPDATE_INTERVAL: DEFAULT_UPDATE_INTERVAL, CONF_STATIONS: []}
+        config = {
+            CONF_UPDATE_INTERVAL: DEFAULT_UPDATE_INTERVAL,
+            CONF_COUNTY: ""}
+
+    if counties is None:
+        counties = []
+
     return {
         vol.Required(
             CONF_UPDATE_INTERVAL, default=config.get(CONF_UPDATE_INTERVAL)
         ): int,
-        vol.Required(CONF_STATIONS, default=config.get(CONF_STATIONS)): SelectSelector(
+        vol.Required(CONF_COUNTY, default=config.get(CONF_COUNTY)): SelectSelector(
             SelectSelectorConfig(
-                options=DATA_STATIONS_NAME,
-                multiple=True,
+                options=counties,
+                multiple=False,
                 mode=SelectSelectorMode.DROPDOWN,
             )
-        ),
+        )
     }
 
-
-def station_config_schema(step_id, config: dict = None) -> dict:
-    """Get station schema configuration dict."""
-    options = []
+def municipality_config_schema(config: dict | None, municipalities: list[str]) -> dict:
+    """Get municipality schema configuration dict."""
     if config is None:
-        config = {CONF_FUELTYPES: []}
-    if step_id == DATA_STATION_CIRCLE_K:
-        options = DATA_CIRCLEK_FUEL_TYPES
-    elif step_id == DATA_STATION_INGO:
-        options = DATA_INGO_FUEL_TYPES
-    elif step_id == DATA_STATION_OKQ8:
-        options = DATA_OKQ8_FUEL_TYPES
-    elif step_id == DATA_STATION_PREEM:
-        options = DATA_PREEM_FUEL_TYPES
-    elif step_id == DATA_STATION_SHELL:
-        options = DATA_SHELL_FUEL_TYPES
-    elif step_id == DATA_STATION_ST1:
-        options = DATA_ST1_FUEL_TYPES
-    elif step_id == DATA_STATION_TANKA:
-        options = DATA_TANKA_FUEL_TYPES
+        config = {CONF_MUNICIPALITY: ""}
     return {
-        vol.Required(
-            CONF_FUELTYPES, default=config.get(CONF_FUELTYPES)
-        ): SelectSelector(
+        vol.Required(CONF_MUNICIPALITY, default=config.get(CONF_MUNICIPALITY)): SelectSelector(
             SelectSelectorConfig(
-                options=[item["name"] for item in options],
-                multiple=True,
-                mode=SelectSelectorMode.LIST,
+                options=municipalities,
+                multiple=False,
+                mode=SelectSelectorMode.DROPDOWN,
             )
-        ),
+        )
     }
+
+def station_config_schema(config: dict | None, stations: list[dict]) -> dict:
+    """Get station schema configuration dict."""
+    if config is None:
+        config = {CONF_STATION: {}}
+    return {
+        vol.Required(CONF_STATION, default=config.get(CONF_STATION)): SelectSelector(
+            SelectSelectorConfig(
+                options=[item["name"] for item in stations],
+                multiple=False,
+                mode=SelectSelectorMode.DROPDOWN,
+                sort=True
+            )
+        )
+    }
+

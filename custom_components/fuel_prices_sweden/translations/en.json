@@ -4,27 +4,35 @@
         "step": {
             "user": {
                 "title": "Fuel Prices Sweden",
-                "description": "Setup fuel price in Sweden integration.",
+                "description": "Set up the Fuel Prices Sweden integration.",
                 "data": {
-                    "stations": "Stations which you want to get the fuel price from.",
-                    "update_interval": "Price update interval (Minimum 60 minutes)"
+                    "update_interval": "Price update interval (minimum 60 minutes)",
+                    "county": "County"
+                }
+            },
+            "municipality": {
+                "title": "{county_name} Municipalities",
+                "description": "Select a municipality.",
+                "data": {
+                    "municipality": "Municipality"
                 }
             },
             "station": {
-                "title": "{station_name}",
-                "description": "Select the fuel types.",
+                "title": "{county_name} - {municipality_name} Stations",
+                "description": "Select a station.\n**NOTE: After setup is complete, the integration will display fuel prices if available for the selected station. Otherwise, it will show 0.0.**",
                 "data": {
-                    "fuel_type": "Fuel types"
+                    "station": "Station"
                 }
             }
         },
         "error": {
-            "invalid_update_interval": "Update interval should be minimum 60",
-            "no_station_selected": "Please select at least one station",
-            "no_fuel_type_selected": "Please select at least one fuel type"
+            "invalid_update_interval": "Update interval must be at least 60 minutes.",
+            "no_county_selected": "Please select a county.",
+            "no_municipality_selected": "Please select a municipality.",
+            "no_station_selected": "Please select a station."
         },
         "abort": {
-            "already_configured": "Integration is already configured"
+            "already_configured": "This integration is already configured."
         }
     }
 }
