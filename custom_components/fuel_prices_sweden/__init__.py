@@ -26,7 +26,6 @@ CONFIG_SCHEMA = vol.Schema({}, extra=vol.ALLOW_EXTRA)
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the integration from the config yaml."""
     logger.debug("[__init__][setup] Started")
-    logger.warning("[__init__][setup] Configuration.yaml is not supported")
     return True
 
 
