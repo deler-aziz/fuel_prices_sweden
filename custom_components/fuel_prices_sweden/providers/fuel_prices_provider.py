@@ -45,26 +45,23 @@ class FuelPricesProvider:
     async def _get_prices(self, html) -> dict:
         """Extract fuel prices from HTML."""
         fuel_prices = {}
-        form_groups = html.find_all("div", class_="form-group")
+        section = html.find("section", attrs={"aria-labelledby": "current-prices-h2"})
+        price_list = section.find("ul") if section else None
+        if not price_list:
+            logger.warning("[fuel_prices_provider][_get_prices] No current price list found")
+            return fuel_prices
 
-        for group in form_groups:
-            fuel_type_tag = group.find("b")
-            if not fuel_type_tag:
+        for item in price_list.find_all("li"):
+            fuel_type_tag = item.find("span")
+            price_tag = item.find("strong")
+            if not fuel_type_tag or not price_tag:
                 continue
 
             fuel_type = fuel_type_tag.get_text(strip=True)
-            input_fields = group.find_all("input", type="number")
-            if len(input_fields) < 2:
-                logger.warning("[fuel_prices_provider][_get_prices] Skipping fuel type %s due to missing input fields", fuel_type)
-                continue
-
-            kronor = input_fields[0].get("placeholder")
-            oren = input_fields[1].get("placeholder")
+            price_text = price_tag.get_text(strip=True).split("kr")[0].strip().replace(",", ".")
 
             try:
-                kronor = float(kronor.replace(",", "")) if kronor and kronor.replace(",", "").isdigit() else 0.0
-                oren = float(oren) / 100 if oren and oren.isdigit() else 0.0
-                total_price = kronor + oren
+                total_price = float(price_text)
             except ValueError:
                 logger.warning("[fuel_prices_provider][_get_prices] Failed to parse price for fuel type: %s", fuel_type)
                 total_price = 0.0
