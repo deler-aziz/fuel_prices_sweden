@@ -9,7 +9,7 @@ logger = logging.getLogger(f"custom_components.{DOMAIN}")
 class StationsProvider:
     """Stations Provider."""
 
-    STATIONS_TABLE_ID = "price_table"
+    STATIONS_LIST_ID = "price_table"
 
     def __init__(self, hass) -> None:
         """Initialize provider."""
@@ -51,40 +51,41 @@ class StationsProvider:
 
     async def _get_stations(self, html) -> list[dict]:
         """Extract stations from HTML."""
-        table = html.find("table", id=self.STATIONS_TABLE_ID)
-        if not table:
-            logger.warning("[stations_provider][_get_stations] No table found with id='%s'", self.STATIONS_TABLE_ID)
+        station_list = html.find(id=self.STATIONS_LIST_ID)
+        if not station_list:
+            logger.warning("[stations_provider][_get_stations] No list found with id='%s'", self.STATIONS_LIST_ID)
             return []
 
         stations = []
-        for row in table.select("tbody tr.table-row"):
-            station_td = row.find("td")
-            if not station_td:
+        for row in station_list.find_all("li", class_="cp-row"):
+            tap = row.find("a", class_="cp-row-tap")
+            info = row.find("div", class_="cp-info")
+            if not tap or not info:
                 continue
 
-            name_tag = station_td.find("b")
-            location_tag = station_td.find("small")
-            url_path = row.get("data-href")
+            url_path = tap.get("href")
+            title_tag = info.find("div", class_="cp-title")
+            addr_tag = info.find("div", class_="cp-addr")
 
-            if name_tag and location_tag and url_path:
+            if title_tag and url_path:
                 stations.append({
-                    "name": self._format_station_name(name_tag, location_tag, station_td),
+                    "name": self._format_station_name(title_tag, addr_tag),
                     "url_path": url_path.replace("/station/", "")
                 })
 
         logger.debug("[stations_provider][_get_stations] Retrieved %d stations", len(stations))
         return stations
 
-    def _format_station_name(self, name_tag, location_tag, station_td) -> str:
+    def _format_station_name(self, title_tag, addr_tag) -> str:
         """Format the station name."""
-        station_name = name_tag.get_text(strip=True)
-        location_name = location_tag.get_text(strip=True)
+        brand_tag = title_tag.find("b")
+        commune_tag = title_tag.find("span", class_="cp-commune")
 
-        station_name = station_name.replace(location_name, "").strip()
-        address = station_td.get_text(separator=" ", strip=True)
-        address = address.replace(station_name, "").replace(location_name, "").strip()
+        brand_name = brand_tag.get_text(strip=True) if brand_tag else ""
+        commune_name = commune_tag.get_text(strip=True) if commune_tag else ""
+        address = addr_tag.get_text(strip=True) if addr_tag else ""
 
-        return f"{station_name} {location_name} ({address})"
+        return f"{brand_name} {commune_name} ({address})"
 
     def _url_safe(self, name: str) -> str:
         """Convert name to a URL-safe format."""
