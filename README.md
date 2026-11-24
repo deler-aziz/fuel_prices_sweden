@@ -17,17 +17,25 @@ The integration provides fuel prices in Sweden by using a web scraper to extract
 
 
 ## 🚀 Installation
-### Using HACS store (recommended)
-1. If you don't have it already, install HACS [Check here](https://hacs.xyz/docs/setup/download/)
-2. Go into HACS and Add https://github.com/deler-aziz/fuel_prices_sweden as custom repository
-3. In HACS search for `Fuel Prices Sweden` Or [![Open your Home Assistant instance and open Fuel Prices Sweden repository inside the HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=deler-aziz&repository=fuel_prices_sweden)
-4. Follow the [configuration](#Configuration) section to setup the integration
+### Using the Marketplace (recommended)
+Requires Home Assistant 2026.11 or newer.
 
+1. Go to **Settings** > **Marketplace** and search for `Fuel Prices Sweden`, or click [![Open your Home Assistant instance and open Fuel Prices Sweden in the Marketplace.](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=deler-aziz&repository=fuel_prices_sweden&category=integration)
+2. Select **Install**. The setup wizard opens right away, no restart needed.
+3. Follow the [configuration](#Configuration) section to set up the integration
+
+**Installed it with HACS before?** You don't need to do anything. When you update to Home Assistant 2026.11, the integration moves to the Marketplace automatically and keeps getting updates.
+
+### Using HACS (Home Assistant 2026.10 or older)
+1. In HACS, search for `Fuel Prices Sweden` and download it
+2. Restart Home Assistant
+3. Follow the [configuration](#Configuration) section to set up the integration
 
 ### Manual
-1. Download the latest release from [here](https://github.com/deler-aziz/fuel_prices_sweden/releases)
-2. Unzip the release into **custom_components** directory inside your home assistant **config** directory
-3. Follow the [configuration](#Configuration) section to setup the integration
+1. Download `fuel_prices_sweden.zip` from the [latest release](https://github.com/deler-aziz/fuel_prices_sweden/releases/latest)
+2. Create the folder **custom_components/fuel_prices_sweden** inside your Home Assistant **config** directory and unzip the file into it
+3. Restart Home Assistant
+4. Follow the [configuration](#Configuration) section to set up the integration
 
 ## ⚙️ Configuration
 ### UI (recommended)
